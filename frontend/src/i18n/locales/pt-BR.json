@@ -1,0 +1,165 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "all": "Todos",
+    "none": "Nenhum",
+    "yes": "Sim",
+    "no": "Não",
+    "confirm": "Confirmar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "close": "Fechar",
+    "actions": "Ações",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "profile": "Perfil",
+    "seeAll": "Ver todos"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projetos",
+    "boards": "Quadros",
+    "tasks": "Tarefas"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirmPassword": "Confirmar Senha",
+    "name": "Nome",
+    "forgotPassword": "Esqueceu a senha?",
+    "noAccount": "Não tem uma conta?",
+    "hasAccount": "Já tem uma conta?",
+    "loginTitle": "Bem-vindo de volta",
+    "loginSubtitle": "Entre na sua conta para continuar",
+    "registerTitle": "Criar conta",
+    "registerSubtitle": "Preencha os dados para se cadastrar",
+    "passwordMinLength": "A senha deve ter no mínimo 6 caracteres",
+    "passwordMismatch": "As senhas não coincidem"
+  },
+  "dashboard": {
+    "welcome": "Olá, {name}!",
+    "subtitle": "Bem-vindo ao seu painel de controle",
+    "projects": "Projetos",
+    "completedTasks": "Tarefas Concluídas",
+    "inProgress": "Em Andamento",
+    "recentProjects": "Projetos Recentes",
+    "recentActivity": "Atividade Recente",
+    "noProjects": "Nenhum projeto encontrado",
+    "taskStats": "Estatísticas de Tarefas",
+    "weeklyProgress": "Progresso Semanal"
+  },
+  "projects": {
+    "title": "Projetos",
+    "newProject": "Novo Projeto",
+    "projectName": "Nome do projeto",
+    "projectDescription": "Descrição",
+    "projectColor": "Cor",
+    "deleteConfirm": "Tem certeza que deseja excluir este projeto?",
+    "noProjects": "Nenhum projeto encontrado",
+    "createFirst": "Crie seu primeiro projeto",
+    "boards": "quadros | quadro | quadros"
+  },
+  "boards": {
+    "title": "Quadros",
+    "newBoard": "Novo Quadro",
+    "boardName": "Nome do quadro",
+    "boardDescription": "Descrição",
+    "deleteConfirm": "Tem certeza que deseja excluir este quadro?",
+    "noBoards": "Nenhum quadro encontrado"
+  },
+  "tasks": {
+    "title": "Tarefas",
+    "newTask": "Nova Tarefa",
+    "addTask": "Adicionar tarefa",
+    "taskTitle": "Título",
+    "taskDescription": "Descrição",
+    "priority": "Prioridade",
+    "dueDate": "Data de vencimento",
+    "assignees": "Responsáveis",
+    "labels": "Etiquetas",
+    "comments": "Comentários",
+    "deleteConfirm": "Tem certeza que deseja excluir esta tarefa?",
+    "noTasks": "Nenhuma tarefa",
+    "taskDetails": "Detalhes da Tarefa",
+    "priorities": {
+      "low": "Baixa",
+      "medium": "Média",
+      "high": "Alta",
+      "urgent": "Urgente"
+    },
+    "status": {
+      "todo": "A Fazer",
+      "inProgress": "Em Progresso",
+      "done": "Concluído"
+    },
+    "overdue": "Atrasada",
+    "dueToday": "Vence hoje",
+    "dueTomorrow": "Vence amanhã"
+  },
+  "lists": {
+    "todo": "A Fazer",
+    "inProgress": "Em Progresso",
+    "done": "Concluído",
+    "newList": "Nova Lista"
+  },
+  "profile": {
+    "title": "Meu Perfil",
+    "updateSuccess": "Perfil atualizado com sucesso",
+    "updateError": "Erro ao atualizar perfil"
+  },
+  "settings": {
+    "title": "Configurações",
+    "appearance": "Aparência",
+    "language": "Idioma",
+    "darkMode": "Modo Escuro",
+    "lightMode": "Modo Claro",
+    "system": "Sistema",
+    "notifications": "Notificações"
+  },
+  "toast": {
+    "success": "Sucesso",
+    "error": "Erro",
+    "warning": "Atenção",
+    "info": "Informação",
+    "taskCreated": "Tarefa criada com sucesso",
+    "taskUpdated": "Tarefa atualizada com sucesso",
+    "taskDeleted": "Tarefa excluída com sucesso",
+    "taskMoved": "Tarefa movida com sucesso",
+    "projectCreated": "Projeto criado com sucesso",
+    "projectDeleted": "Projeto excluído com sucesso",
+    "boardCreated": "Quadro criado com sucesso",
+    "boardDeleted": "Quadro excluído com sucesso",
+    "loginSuccess": "Login realizado com sucesso",
+    "logoutSuccess": "Logout realizado com sucesso",
+    "genericError": "Ocorreu um erro. Tente novamente."
+  },
+  "onboarding": {
+    "welcome": "Bem-vindo ao TaskManager!",
+    "step1Title": "Crie seu primeiro projeto",
+    "step1Description": "Organize seu trabalho criando projetos para diferentes áreas.",
+    "step2Title": "Adicione quadros",
+    "step2Description": "Use quadros Kanban para visualizar o fluxo de trabalho.",
+    "step3Title": "Gerencie tarefas",
+    "step3Description": "Arraste e solte tarefas entre as colunas.",
+    "skip": "Pular tutorial",
+    "finish": "Começar a usar"
+  },
+  "shortcuts": {
+    "title": "Atalhos de Teclado",
+    "newTask": "Nova tarefa",
+    "search": "Buscar",
+    "save": "Salvar",
+    "escape": "Fechar/Cancelar",
+    "navigation": "Navegação"
+  }
+}

@@ -1,0 +1,186 @@
+Projeto
+Go API – Gestão de Projetos e Tarefas (Trello-like)
+
+Uma aplicação web para gestão de projetos, quadros, listas e tarefas, com autenticação, permissões, drag-and-drop e dashboard.
+
+🧠 O que ESSE projeto prova no seu portfólio
+
+✔ Go backend bem arquitetado
+✔ API REST profissional
+✔ Auth JWT + RBAC
+✔ Relacionamentos complexos no banco
+✔ Frontend SPA moderno (Vue 3)
+✔ Integração real backend ↔ frontend
+✔ Docker + CI/CD
+✔ Pronto para produção
+
+👉 Esse tipo de projeto passa em entrevista fácil.
+
+🧩 ESCOPO FUNCIONAL COMPLETO
+👤 Usuários
+
+Cadastro
+
+Login
+
+Perfil
+
+Roles: user, admin
+
+Token JWT + refresh token
+
+📁 Projetos
+
+Criar projeto
+
+Editar projeto
+
+Excluir projeto
+
+Convidar membros
+
+Definir permissões por projeto
+
+🧱 Quadros (Boards)
+
+Cada projeto pode ter vários quadros
+
+Ex: Sprint 1, Backlog, Roadmap
+
+📋 Listas (Columns)
+
+Ex: To Do, Doing, Done
+
+Ordenação dinâmica
+
+Drag-and-drop
+
+✅ Tarefas
+
+Criar tarefa
+
+Editar
+
+Excluir
+
+Atribuir usuário
+
+Prioridade
+
+Status
+
+Comentários
+
+Data limite
+
+Ordem (posição na lista)
+
+📊 Dashboard
+
+Total de tarefas
+
+Tarefas concluídas
+
+Atrasadas
+
+Por usuário
+
+Por projeto
+
+🔐 Segurança
+
+JWT Access + Refresh
+
+Middleware de auth
+
+Autorização por projeto
+
+Rate limit básico
+
+🛠️ STACK TECNOLÓGICA
+Backend
+
+Go 1.21+
+
+Gin ou Fiber
+
+PostgreSQL
+
+GORM ou SQLC
+
+JWT
+
+Swagger / OpenAPI
+
+Migrations
+
+Testes (Go test)
+
+Frontend
+
+Vue 3
+
+Composition API
+
+Pinia
+
+Vue Router
+
+Axios
+
+TailwindCSS
+
+Drag & Drop (VueDraggable / SortableJS)
+
+Infra
+
+Docker
+
+Docker Compose
+
+Makefile
+
+GitHub Actions
+
+🗄️ MODELO DE DADOS (RESUMO)
+User
+ └── Projects (many-to-many)
+       └── Boards
+             └── Lists
+                   └── Tasks
+                         └── Comments
+
+📁 ESTRUTURA BACKEND (GO)
+/cmd/api
+/internal
+   /config
+   /database
+   /entities
+   /repositories
+   /services
+   /handlers
+   /middlewares
+   /routes
+   /auth
+/migrations
+/docs
+/tests
+
+📁 ESTRUTURA FRONTEND (VUE)
+/src
+  /api
+  /views
+  /components
+  /stores
+  /router
+  /assets
+
+✨ DIFERENCIAIS (VALOR DE PORTFÓLIO)
+
+⭐ Drag-and-drop persistido no backend
+⭐ Permissões por projeto
+⭐ Paginação e filtros
+⭐ Soft delete
+⭐ Auditoria de alterações
+⭐ WebSockets (opcional)
+⭐ Dark mode

@@ -1,0 +1,165 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "actions": "Actions",
+    "settings": "Settings",
+    "logout": "Logout",
+    "profile": "Profile",
+    "seeAll": "See all"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "boards": "Boards",
+    "tasks": "Tasks"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to your account to continue",
+    "registerTitle": "Create account",
+    "registerSubtitle": "Fill in your details to sign up",
+    "passwordMinLength": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "dashboard": {
+    "welcome": "Hello, {name}!",
+    "subtitle": "Welcome to your control panel",
+    "projects": "Projects",
+    "completedTasks": "Completed Tasks",
+    "inProgress": "In Progress",
+    "recentProjects": "Recent Projects",
+    "recentActivity": "Recent Activity",
+    "noProjects": "No projects found",
+    "taskStats": "Task Statistics",
+    "weeklyProgress": "Weekly Progress"
+  },
+  "projects": {
+    "title": "Projects",
+    "newProject": "New Project",
+    "projectName": "Project name",
+    "projectDescription": "Description",
+    "projectColor": "Color",
+    "deleteConfirm": "Are you sure you want to delete this project?",
+    "noProjects": "No projects found",
+    "createFirst": "Create your first project",
+    "boards": "boards | board | boards"
+  },
+  "boards": {
+    "title": "Boards",
+    "newBoard": "New Board",
+    "boardName": "Board name",
+    "boardDescription": "Description",
+    "deleteConfirm": "Are you sure you want to delete this board?",
+    "noBoards": "No boards found"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "newTask": "New Task",
+    "addTask": "Add task",
+    "taskTitle": "Title",
+    "taskDescription": "Description",
+    "priority": "Priority",
+    "dueDate": "Due date",
+    "assignees": "Assignees",
+    "labels": "Labels",
+    "comments": "Comments",
+    "deleteConfirm": "Are you sure you want to delete this task?",
+    "noTasks": "No tasks",
+    "taskDetails": "Task Details",
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "status": {
+      "todo": "To Do",
+      "inProgress": "In Progress",
+      "done": "Done"
+    },
+    "overdue": "Overdue",
+    "dueToday": "Due today",
+    "dueTomorrow": "Due tomorrow"
+  },
+  "lists": {
+    "todo": "To Do",
+    "inProgress": "In Progress",
+    "done": "Done",
+    "newList": "New List"
+  },
+  "profile": {
+    "title": "My Profile",
+    "updateSuccess": "Profile updated successfully",
+    "updateError": "Error updating profile"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "language": "Language",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "system": "System",
+    "notifications": "Notifications"
+  },
+  "toast": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Information",
+    "taskCreated": "Task created successfully",
+    "taskUpdated": "Task updated successfully",
+    "taskDeleted": "Task deleted successfully",
+    "taskMoved": "Task moved successfully",
+    "projectCreated": "Project created successfully",
+    "projectDeleted": "Project deleted successfully",
+    "boardCreated": "Board created successfully",
+    "boardDeleted": "Board deleted successfully",
+    "loginSuccess": "Login successful",
+    "logoutSuccess": "Logout successful",
+    "genericError": "An error occurred. Please try again."
+  },
+  "onboarding": {
+    "welcome": "Welcome to TaskManager!",
+    "step1Title": "Create your first project",
+    "step1Description": "Organize your work by creating projects for different areas.",
+    "step2Title": "Add boards",
+    "step2Description": "Use Kanban boards to visualize your workflow.",
+    "step3Title": "Manage tasks",
+    "step3Description": "Drag and drop tasks between columns.",
+    "skip": "Skip tutorial",
+    "finish": "Start using"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "newTask": "New task",
+    "search": "Search",
+    "save": "Save",
+    "escape": "Close/Cancel",
+    "navigation": "Navigation"
+  }
+}
