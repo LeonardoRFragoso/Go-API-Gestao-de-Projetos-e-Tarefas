@@ -7,7 +7,9 @@
   <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
 </p>
 
-Sistema completo estilo Trello para gestão de projetos e tarefas, com backend em Go e frontend em Vue.js 3. Inclui **Dark Mode**, **Internacionalização (PT-BR/EN)**, **Gráficos**, **Kanban Board** com drag-and-drop e muito mais!
+Sistema completo estilo Trello para gestão de projetos e tarefas, com backend em Go e frontend em Vue.js 3. Inclui **Dark Mode**, **Internacionalização (PT-BR/EN)**, **Gráficos**, **Kanban Board** com drag-and-drop, **Equipes/Squads**, **Notificações** e muito mais!
+
+🔗 **Repositório:** [https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas](https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas)
 
 ## ✨ Features
 
@@ -15,12 +17,14 @@ Sistema completo estilo Trello para gestão de projetos e tarefas, com backend e
 - 🌐 **Internacionalização** - Suporte para Português (BR) e Inglês
 - 📊 **Dashboard com Gráficos** - Visualização de estatísticas com Chart.js
 - 📋 **Kanban Board** - Arrastar e soltar tarefas entre colunas
-- 🔍 **Busca e Filtros** - Pesquise tarefas por título, descrição e prioridade
-- 🔔 **Toast Notifications** - Feedback visual para ações
+- � **Equipes/Squads** - Crie equipes, adicione membros e vincule projetos
+- 🔔 **Sistema de Notificações** - Notificações em tempo real para tarefas, convites e menções
+- 🛡️ **Permissões Granulares** - Controle de acesso por projeto e equipe (lead, admin, member)
+- � **Busca e Filtros** - Pesquise tarefas por título, descrição e prioridade
 - 📱 **Responsivo** - Menu mobile e bottom navigation
 - ⌨️ **Atalhos de Teclado** - Navegação rápida
 - 🎯 **Onboarding** - Tutorial para novos usuários
-- � **JWT Authentication** - Access + Refresh tokens
+- 🔐 **JWT Authentication** - Access + Refresh tokens
 
 ## � Tecnologias
 
@@ -88,8 +92,8 @@ Sistema completo estilo Trello para gestão de projetos e tarefas, com backend e
 
 ```bash
 # Clonar o repositório
-git clone <repo-url>
-cd taskmanager
+git clone https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas.git
+cd Go-API-Gestao-de-Projetos-e-Tarefas
 
 # Subir todos os serviços
 docker-compose up -d
@@ -217,6 +221,32 @@ npm run dev
 | PUT | `/api/v1/labels/:id` | Atualizar label |
 | DELETE | `/api/v1/labels/:id` | Excluir label |
 
+### Equipes (Teams/Squads)
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/teams` | Listar equipes |
+| POST | `/api/v1/teams` | Criar equipe |
+| GET | `/api/v1/teams/:id` | Buscar equipe |
+| PUT | `/api/v1/teams/:id` | Atualizar equipe |
+| DELETE | `/api/v1/teams/:id` | Excluir equipe |
+| GET | `/api/v1/teams/:id/members` | Listar membros |
+| POST | `/api/v1/teams/:id/members` | Adicionar membro |
+| PUT | `/api/v1/teams/:id/members/:memberId` | Atualizar role do membro |
+| DELETE | `/api/v1/teams/:id/members/:memberId` | Remover membro |
+| GET | `/api/v1/teams/:id/projects` | Listar projetos da equipe |
+| POST | `/api/v1/teams/:id/projects` | Vincular projeto |
+| DELETE | `/api/v1/teams/:id/projects/:projectId` | Desvincular projeto |
+
+### Notificações
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/notifications` | Listar notificações |
+| GET | `/api/v1/notifications/count` | Contar não lidas |
+| PUT | `/api/v1/notifications/:id/read` | Marcar como lida |
+| PUT | `/api/v1/notifications/read-all` | Marcar todas como lidas |
+| DELETE | `/api/v1/notifications/:id` | Excluir notificação |
+| DELETE | `/api/v1/notifications` | Excluir todas |
+
 ## 🔐 Autenticação
 
 A API usa JWT com dois tokens:
@@ -245,6 +275,9 @@ Authorization: Bearer <access_token>
 - ✅ **Atalhos de Teclado** - `?` para ver atalhos, `N` para nova tarefa
 - ✅ **Onboarding** - Tutorial interativo para novos usuários
 - ✅ **Animações** - Transições suaves e micro-interações
+- ✅ **Equipes/Squads** - Gerenciamento de equipes com membros e projetos
+- ✅ **Notificações** - Dropdown com notificações em tempo real
+- ✅ **Permissões** - Sistema de roles (lead, admin, member)
 
 ## ⌨️ Atalhos de Teclado
 
@@ -315,3 +348,8 @@ Para deploy em produção:
 ## 📄 Licença
 
 MIT License
+
+## 👨‍💻 Autor
+
+**Leonardo R. Fragoso**
+- GitHub: [@LeonardoRFragoso](https://github.com/LeonardoRFragoso)
