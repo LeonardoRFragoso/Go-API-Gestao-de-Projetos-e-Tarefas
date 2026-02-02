@@ -37,6 +37,8 @@ func main() {
 	taskRepo := repository.NewTaskRepository(db)
 	commentRepo := repository.NewCommentRepository(db)
 	labelRepo := repository.NewLabelRepository(db)
+	teamRepo := repository.NewTeamRepository(db)
+	notificationRepo := repository.NewNotificationRepository(db)
 
 	authService := service.NewAuthService(userRepo, tokenRepo, &cfg.JWT)
 	userService := service.NewUserService(userRepo)
@@ -46,6 +48,8 @@ func main() {
 	taskService := service.NewTaskService(taskRepo)
 	commentService := service.NewCommentService(commentRepo)
 	labelService := service.NewLabelService(labelRepo)
+	notificationService := service.NewNotificationService(notificationRepo)
+	teamService := service.NewTeamService(teamRepo, notificationService)
 
 	authHandler := handler.NewAuthHandler(authService, userService)
 	userHandler := handler.NewUserHandler(userService)
@@ -56,6 +60,8 @@ func main() {
 	commentHandler := handler.NewCommentHandler(commentService)
 	labelHandler := handler.NewLabelHandler(labelService)
 	statsHandler := handler.NewStatsHandler(taskRepo, projectService)
+	teamHandler := handler.NewTeamHandler(teamService)
+	notificationHandler := handler.NewNotificationHandler(notificationService)
 
 	r := router.New(
 		authHandler,
@@ -67,6 +73,8 @@ func main() {
 		commentHandler,
 		labelHandler,
 		statsHandler,
+		teamHandler,
+		notificationHandler,
 		authService,
 		cfg.CORS.Origins,
 	)

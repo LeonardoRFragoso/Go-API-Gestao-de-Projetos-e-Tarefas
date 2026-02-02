@@ -8,18 +8,20 @@ import (
 )
 
 type Router struct {
-	engine         *gin.Engine
-	authHandler    *handler.AuthHandler
-	userHandler    *handler.UserHandler
-	projectHandler *handler.ProjectHandler
-	boardHandler   *handler.BoardHandler
-	listHandler    *handler.ListHandler
-	taskHandler    *handler.TaskHandler
-	commentHandler *handler.CommentHandler
-	labelHandler   *handler.LabelHandler
-	statsHandler   *handler.StatsHandler
-	authService    service.AuthService
-	corsOrigins    string
+	engine              *gin.Engine
+	authHandler         *handler.AuthHandler
+	userHandler         *handler.UserHandler
+	projectHandler      *handler.ProjectHandler
+	boardHandler        *handler.BoardHandler
+	listHandler         *handler.ListHandler
+	taskHandler         *handler.TaskHandler
+	commentHandler      *handler.CommentHandler
+	labelHandler        *handler.LabelHandler
+	statsHandler        *handler.StatsHandler
+	teamHandler         *handler.TeamHandler
+	notificationHandler *handler.NotificationHandler
+	authService         service.AuthService
+	corsOrigins         string
 }
 
 func New(
@@ -32,22 +34,26 @@ func New(
 	commentHandler *handler.CommentHandler,
 	labelHandler *handler.LabelHandler,
 	statsHandler *handler.StatsHandler,
+	teamHandler *handler.TeamHandler,
+	notificationHandler *handler.NotificationHandler,
 	authService service.AuthService,
 	corsOrigins string,
 ) *Router {
 	return &Router{
-		engine:         gin.Default(),
-		authHandler:    authHandler,
-		userHandler:    userHandler,
-		projectHandler: projectHandler,
-		boardHandler:   boardHandler,
-		listHandler:    listHandler,
-		taskHandler:    taskHandler,
-		commentHandler: commentHandler,
-		labelHandler:   labelHandler,
-		statsHandler:   statsHandler,
-		authService:    authService,
-		corsOrigins:    corsOrigins,
+		engine:              gin.Default(),
+		authHandler:         authHandler,
+		userHandler:         userHandler,
+		projectHandler:      projectHandler,
+		boardHandler:        boardHandler,
+		listHandler:         listHandler,
+		taskHandler:         taskHandler,
+		commentHandler:      commentHandler,
+		labelHandler:        labelHandler,
+		statsHandler:        statsHandler,
+		teamHandler:         teamHandler,
+		notificationHandler: notificationHandler,
+		authService:         authService,
+		corsOrigins:         corsOrigins,
 	}
 }
 
@@ -145,6 +151,32 @@ func (r *Router) Setup() *gin.Engine {
 				stats.GET("/dashboard", r.statsHandler.GetDashboardStats)
 				stats.GET("/tasks", r.statsHandler.GetTaskStats)
 				stats.GET("/weekly", r.statsHandler.GetWeeklyProgress)
+			}
+
+			teams := protected.Group("/teams")
+			{
+				teams.POST("", r.teamHandler.Create)
+				teams.GET("", r.teamHandler.List)
+				teams.GET("/:id", r.teamHandler.GetByID)
+				teams.PUT("/:id", r.teamHandler.Update)
+				teams.DELETE("/:id", r.teamHandler.Delete)
+				teams.GET("/:id/members", r.teamHandler.GetMembers)
+				teams.POST("/:id/members", r.teamHandler.AddMember)
+				teams.PUT("/:id/members/:memberId", r.teamHandler.UpdateMemberRole)
+				teams.DELETE("/:id/members/:memberId", r.teamHandler.RemoveMember)
+				teams.GET("/:id/projects", r.teamHandler.GetProjects)
+				teams.POST("/:id/projects", r.teamHandler.AddProject)
+				teams.DELETE("/:id/projects/:projectId", r.teamHandler.RemoveProject)
+			}
+
+			notifications := protected.Group("/notifications")
+			{
+				notifications.GET("", r.notificationHandler.List)
+				notifications.GET("/count", r.notificationHandler.GetUnreadCount)
+				notifications.PUT("/:id/read", r.notificationHandler.MarkAsRead)
+				notifications.PUT("/read-all", r.notificationHandler.MarkAllAsRead)
+				notifications.DELETE("/:id", r.notificationHandler.Delete)
+				notifications.DELETE("", r.notificationHandler.DeleteAll)
 			}
 		}
 	}

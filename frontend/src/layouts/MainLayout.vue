@@ -7,8 +7,9 @@ import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
 import { 
   FolderKanban, ChevronDown, User, LogOut, Settings,
-  Home, Folder
+  Home, Folder, Users
 } from 'lucide-vue-next'
+import NotificationDropdown from '@/components/NotificationDropdown.vue'
 import UserAvatar from '@/components/ui/UserAvatar.vue'
 import ThemeToggle from '@/components/ui/ThemeToggle.vue'
 import LanguageToggle from '@/components/ui/LanguageToggle.vue'
@@ -86,10 +87,21 @@ onMounted(() => {
                 <Folder :size="18" />
                 {{ t('nav.projects') }}
               </RouterLink>
+              <RouterLink 
+                to="/teams" 
+                :class="[
+                  'nav-link flex items-center gap-2',
+                  isActiveRoute('/teams') || route.path.startsWith('/teams') ? 'nav-link-active' : ''
+                ]"
+              >
+                <Users :size="18" />
+                Equipes
+              </RouterLink>
             </div>
           </div>
 
           <div class="flex items-center gap-2">
+            <NotificationDropdown />
             <ThemeToggle />
             <LanguageToggle />
             
