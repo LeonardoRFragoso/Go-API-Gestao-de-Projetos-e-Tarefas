@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/taskmanager/backend/internal/models"
 	"gorm.io/gorm"
@@ -21,6 +23,8 @@ type TaskRepository interface {
 	AddLabel(taskID, labelID uuid.UUID) error
 	RemoveLabel(taskID, labelID uuid.UUID) error
 	Search(query string, projectID uuid.UUID, page, limit int) ([]models.Task, int64, error)
+	GetTaskStatsByUser(userID uuid.UUID) (map[string]int, error)
+	GetWeeklyCompletedTasks(userID uuid.UUID) ([]int, error)
 }
 
 type taskRepository struct {
@@ -158,4 +162,75 @@ func (r *taskRepository) Search(query string, projectID uuid.UUID, page, limit i
 		Find(&tasks).Error
 
 	return tasks, total, err
+}
+
+func (r *taskRepository) GetTaskStatsByUser(userID uuid.UUID) (map[string]int, error) {
+	stats := map[string]int{
+		"todo":        0,
+		"in_progress": 0,
+		"done":        0,
+	}
+
+	type Result struct {
+		ListName string
+		Count    int
+	}
+
+	var results []Result
+
+	err := r.db.Model(&models.Task{}).
+		Select("lists.name as list_name, COUNT(*) as count").
+		Joins("JOIN lists ON lists.id = tasks.list_id").
+		Joins("JOIN boards ON boards.id = lists.board_id").
+		Joins("JOIN projects ON projects.id = boards.project_id").
+		Joins("JOIN project_members ON project_members.project_id = projects.id").
+		Where("project_members.user_id = ? OR projects.owner_id = ?", userID, userID).
+		Group("lists.name").
+		Scan(&results).Error
+
+	if err != nil {
+		return stats, err
+	}
+
+	for _, r := range results {
+		switch r.ListName {
+		case "To Do", "A Fazer":
+			stats["todo"] += r.Count
+		case "In Progress", "Em Progresso", "Doing":
+			stats["in_progress"] += r.Count
+		case "Done", "Concluído", "Concluido":
+			stats["done"] += r.Count
+		}
+	}
+
+	return stats, nil
+}
+
+func (r *taskRepository) GetWeeklyCompletedTasks(userID uuid.UUID) ([]int, error) {
+	weeklyData := make([]int, 7)
+
+	for i := 6; i >= 0; i-- {
+		date := time.Now().AddDate(0, 0, -i)
+		startOfDay := time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, date.Location())
+		endOfDay := startOfDay.AddDate(0, 0, 1)
+
+		var count int64
+		err := r.db.Model(&models.Task{}).
+			Joins("JOIN lists ON lists.id = tasks.list_id").
+			Joins("JOIN boards ON boards.id = lists.board_id").
+			Joins("JOIN projects ON projects.id = boards.project_id").
+			Joins("JOIN project_members ON project_members.project_id = projects.id").
+			Where("(project_members.user_id = ? OR projects.owner_id = ?)", userID, userID).
+			Where("lists.name IN ?", []string{"Done", "Concluído", "Concluido"}).
+			Where("tasks.updated_at >= ? AND tasks.updated_at < ?", startOfDay, endOfDay).
+			Count(&count).Error
+
+		if err != nil {
+			return weeklyData, err
+		}
+
+		weeklyData[6-i] = int(count)
+	}
+
+	return weeklyData, nil
 }

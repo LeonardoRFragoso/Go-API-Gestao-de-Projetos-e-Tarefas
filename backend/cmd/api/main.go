@@ -55,6 +55,7 @@ func main() {
 	taskHandler := handler.NewTaskHandler(taskService, listService, boardService, projectService)
 	commentHandler := handler.NewCommentHandler(commentService)
 	labelHandler := handler.NewLabelHandler(labelService)
+	statsHandler := handler.NewStatsHandler(taskRepo, projectService)
 
 	r := router.New(
 		authHandler,
@@ -65,6 +66,7 @@ func main() {
 		taskHandler,
 		commentHandler,
 		labelHandler,
+		statsHandler,
 		authService,
 		cfg.CORS.Origins,
 	)

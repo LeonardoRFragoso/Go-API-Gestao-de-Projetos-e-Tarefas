@@ -1,7 +1,8 @@
 <script setup>
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed } from 'vue'
 import { useProjectsStore } from '@/stores/projects'
 import { useAuthStore } from '@/stores/auth'
+import { useStatsStore } from '@/stores/stats'
 import { useI18n } from 'vue-i18n'
 import { Folder, CheckCircle, Clock, ChevronRight, Plus, TrendingUp } from 'lucide-vue-next'
 import SkeletonLoader from '@/components/ui/SkeletonLoader.vue'
@@ -11,12 +12,13 @@ import WeeklyProgressChart from '@/components/charts/WeeklyProgressChart.vue'
 const { t } = useI18n()
 const projectsStore = useProjectsStore()
 const authStore = useAuthStore()
+const statsStore = useStatsStore()
 
-const taskStats = ref({ todo: 5, inProgress: 3, done: 12 })
-const weeklyData = ref([2, 4, 1, 6, 3, 5, 2])
-
-onMounted(() => {
-  projectsStore.fetchProjects(1, 5)
+onMounted(async () => {
+  await Promise.all([
+    projectsStore.fetchProjects(1, 5),
+    statsStore.fetchDashboardStats()
+  ])
 })
 
 const recentProjects = computed(() => projectsStore.projects.slice(0, 5))
@@ -24,7 +26,7 @@ const recentProjects = computed(() => projectsStore.projects.slice(0, 5))
 const stats = computed(() => [
   {
     label: t('dashboard.projects'),
-    value: projectsStore.pagination.total || 0,
+    value: statsStore.projectsCount || projectsStore.pagination.total || 0,
     icon: Folder,
     color: 'primary',
     bgClass: 'bg-primary-100 dark:bg-primary-900/30',
@@ -32,7 +34,7 @@ const stats = computed(() => [
   },
   {
     label: t('dashboard.completedTasks'),
-    value: taskStats.value.done,
+    value: statsStore.taskStats.done || 0,
     icon: CheckCircle,
     color: 'green',
     bgClass: 'bg-green-100 dark:bg-green-900/30',
@@ -40,7 +42,7 @@ const stats = computed(() => [
   },
   {
     label: t('dashboard.inProgress'),
-    value: taskStats.value.inProgress,
+    value: statsStore.taskStats.in_progress || 0,
     icon: Clock,
     color: 'yellow',
     bgClass: 'bg-yellow-100 dark:bg-yellow-900/30',
@@ -82,9 +84,9 @@ const stats = computed(() => [
           <TrendingUp :size="20" class="text-gray-400" />
         </div>
         <TaskStatsChart
-          :todo="taskStats.todo"
-          :in-progress="taskStats.inProgress"
-          :done="taskStats.done"
+          :todo="statsStore.taskStats.todo || 0"
+          :in-progress="statsStore.taskStats.in_progress || 0"
+          :done="statsStore.taskStats.done || 0"
         />
       </div>
 
@@ -92,7 +94,7 @@ const stats = computed(() => [
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('dashboard.weeklyProgress') }}</h2>
         </div>
-        <WeeklyProgressChart :data="weeklyData" />
+        <WeeklyProgressChart :data="statsStore.weeklyData" />
       </div>
     </div>
 

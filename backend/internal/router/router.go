@@ -17,6 +17,7 @@ type Router struct {
 	taskHandler    *handler.TaskHandler
 	commentHandler *handler.CommentHandler
 	labelHandler   *handler.LabelHandler
+	statsHandler   *handler.StatsHandler
 	authService    service.AuthService
 	corsOrigins    string
 }
@@ -30,6 +31,7 @@ func New(
 	taskHandler *handler.TaskHandler,
 	commentHandler *handler.CommentHandler,
 	labelHandler *handler.LabelHandler,
+	statsHandler *handler.StatsHandler,
 	authService service.AuthService,
 	corsOrigins string,
 ) *Router {
@@ -43,6 +45,7 @@ func New(
 		taskHandler:    taskHandler,
 		commentHandler: commentHandler,
 		labelHandler:   labelHandler,
+		statsHandler:   statsHandler,
 		authService:    authService,
 		corsOrigins:    corsOrigins,
 	}
@@ -135,6 +138,13 @@ func (r *Router) Setup() *gin.Engine {
 				labels.GET("/:id", r.labelHandler.GetByID)
 				labels.PUT("/:id", r.labelHandler.Update)
 				labels.DELETE("/:id", r.labelHandler.Delete)
+			}
+
+			stats := protected.Group("/stats")
+			{
+				stats.GET("/dashboard", r.statsHandler.GetDashboardStats)
+				stats.GET("/tasks", r.statsHandler.GetTaskStats)
+				stats.GET("/weekly", r.statsHandler.GetWeeklyProgress)
 			}
 		}
 	}
