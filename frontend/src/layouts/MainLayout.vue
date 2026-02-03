@@ -95,7 +95,7 @@ onMounted(() => {
                 ]"
               >
                 <Users :size="18" />
-                Equipes
+                {{ t('nav.teams') }}
               </RouterLink>
             </div>
           </div>

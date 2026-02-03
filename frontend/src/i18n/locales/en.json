@@ -27,7 +27,8 @@
     "dashboard": "Dashboard",
     "projects": "Projects",
     "boards": "Boards",
-    "tasks": "Tasks"
+    "tasks": "Tasks",
+    "teams": "Teams"
   },
   "auth": {
     "login": "Login",
@@ -60,22 +61,64 @@
   },
   "projects": {
     "title": "Projects",
+    "subtitle": "Manage your projects",
     "newProject": "New Project",
     "projectName": "Project name",
+    "projectNamePlaceholder": "Project name",
     "projectDescription": "Description",
+    "projectDescriptionPlaceholder": "Optional description",
     "projectColor": "Color",
     "deleteConfirm": "Are you sure you want to delete this project?",
     "noProjects": "No projects found",
     "createFirst": "Create your first project",
-    "boards": "boards | board | boards"
+    "boards": "boards",
+    "board": "board",
+    "members": "members",
+    "member": "member",
+    "backToProjects": "Back to Projects",
+    "lists": "lists",
+    "tasks": "tasks"
   },
   "boards": {
     "title": "Boards",
     "newBoard": "New Board",
     "boardName": "Board name",
+    "boardNamePlaceholder": "Board name",
     "boardDescription": "Description",
+    "boardDescriptionPlaceholder": "Optional description",
     "deleteConfirm": "Are you sure you want to delete this board?",
     "noBoards": "No boards found"
+  },
+  "teams": {
+    "title": "Teams",
+    "subtitle": "Manage your teams and squads",
+    "newTeam": "New Team",
+    "teamName": "Name",
+    "teamNamePlaceholder": "Team name",
+    "teamDescription": "Description",
+    "teamDescriptionPlaceholder": "Optional description",
+    "teamColor": "Color",
+    "noTeams": "No teams",
+    "noTeamsDescription": "Create a team to collaborate with other members",
+    "createTeam": "Create Team",
+    "deleteConfirm": "Are you sure you want to delete this team?",
+    "members": "members",
+    "projects": "projects",
+    "configure": "Configure",
+    "backToTeams": "Back to Teams",
+    "addMember": "Add",
+    "addProject": "Add",
+    "removeMember": "Are you sure you want to remove this member?",
+    "removeProject": "Are you sure you want to remove this project from the team?",
+    "noMembers": "No members in the team",
+    "noProjects": "No linked projects",
+    "selectProject": "Select a project",
+    "addProjectTitle": "Add Project",
+    "roles": {
+      "lead": "Lead",
+      "admin": "Admin",
+      "member": "Member"
+    }
   },
   "tasks": {
     "title": "Tasks",

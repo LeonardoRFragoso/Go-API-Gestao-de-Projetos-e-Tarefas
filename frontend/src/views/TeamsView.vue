@@ -1,8 +1,10 @@
 <script setup>
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useTeamsStore } from '@/stores/teams'
 import { Users, Plus, Trash2, Settings } from 'lucide-vue-next'
 
+const { t } = useI18n()
 const teamsStore = useTeamsStore()
 const showModal = ref(false)
 const newTeam = ref({ name: '', description: '', color: '#8B5CF6' })
@@ -22,7 +24,7 @@ const handleCreate = async () => {
 }
 
 const handleDelete = async (id) => {
-  if (confirm('Tem certeza que deseja excluir esta equipe?')) {
+  if (confirm(t('teams.deleteConfirm'))) {
     await teamsStore.deleteTeam(id)
   }
 }
@@ -32,21 +34,21 @@ const handleDelete = async (id) => {
   <div>
     <div class="flex items-center justify-between mb-8">
       <div>
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Equipes</h1>
-        <p class="text-gray-600 dark:text-gray-400 mt-1">Gerencie suas equipes e squads</p>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">{{ t('teams.title') }}</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-1">{{ t('teams.subtitle') }}</p>
       </div>
       <button @click="showModal = true" class="btn-primary flex items-center">
         <Plus :size="20" class="mr-2" />
-        Nova Equipe
+        {{ t('teams.newTeam') }}
       </button>
     </div>
 
-    <div v-if="teamsStore.loading" class="text-center py-12 text-gray-500">Carregando...</div>
+    <div v-if="teamsStore.loading" class="text-center py-12 text-gray-500">{{ t('common.loading') }}</div>
     <div v-else-if="teamsStore.teams.length === 0" class="card p-12 text-center">
       <Users :size="64" class="mx-auto text-gray-300 dark:text-gray-600" />
-      <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">Nenhuma equipe</h3>
-      <p class="mt-2 text-gray-500 dark:text-gray-400">Crie uma equipe para colaborar com outros membros</p>
-      <button @click="showModal = true" class="btn-primary mt-4">Criar Equipe</button>
+      <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">{{ t('teams.noTeams') }}</h3>
+      <p class="mt-2 text-gray-500 dark:text-gray-400">{{ t('teams.noTeamsDescription') }}</p>
+      <button @click="showModal = true" class="btn-primary mt-4">{{ t('teams.createTeam') }}</button>
     </div>
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div v-for="team in teamsStore.teams" :key="team.id" class="card hover:shadow-md transition-shadow">
@@ -58,23 +60,23 @@ const handleDelete = async (id) => {
               </div>
               <div>
                 <h3 class="font-semibold text-gray-900 dark:text-white">{{ team.name }}</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">{{ team.member_count }} membros</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ team.member_count }} {{ t('teams.members') }}</p>
               </div>
             </div>
           </div>
           <p v-if="team.description" class="mt-3 text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{{ team.description }}</p>
           <div class="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
-            <span>{{ team.project_count || 0 }} projetos</span>
+            <span>{{ team.project_count || 0 }} {{ t('teams.projects') }}</span>
           </div>
         </RouterLink>
         <div class="px-6 py-3 bg-gray-50 dark:bg-dark-700 border-t border-gray-100 dark:border-dark-600 flex justify-end gap-2">
           <RouterLink :to="`/teams/${team.id}/settings`" class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white flex items-center">
             <Settings :size="16" class="mr-1" />
-            Configurar
+            {{ t('teams.configure') }}
           </RouterLink>
           <button @click.prevent="handleDelete(team.id)" class="text-sm text-red-600 hover:text-red-700 flex items-center">
             <Trash2 :size="16" class="mr-1" />
-            Excluir
+            {{ t('common.delete') }}
           </button>
         </div>
       </div>
@@ -84,19 +86,19 @@ const handleDelete = async (id) => {
     <div v-if="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div class="bg-white dark:bg-dark-800 rounded-xl shadow-xl w-full max-w-md mx-4">
         <div class="p-6 border-b border-gray-100 dark:border-dark-600">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Nova Equipe</h2>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">{{ t('teams.newTeam') }}</h2>
         </div>
         <form @submit.prevent="handleCreate" class="p-6 space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome</label>
-            <input v-model="newTeam.name" type="text" required class="input" placeholder="Nome da equipe" />
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('teams.teamName') }}</label>
+            <input v-model="newTeam.name" type="text" required class="input" :placeholder="t('teams.teamNamePlaceholder')" />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
-            <textarea v-model="newTeam.description" rows="3" class="input" placeholder="Descrição opcional"></textarea>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ t('teams.teamDescription') }}</label>
+            <textarea v-model="newTeam.description" rows="3" class="input" :placeholder="t('teams.teamDescriptionPlaceholder')"></textarea>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cor</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ t('teams.teamColor') }}</label>
             <div class="flex space-x-2">
               <button v-for="color in colors" :key="color" type="button" @click="newTeam.color = color"
                 class="w-8 h-8 rounded-full transition-transform hover:scale-110"
@@ -106,8 +108,8 @@ const handleDelete = async (id) => {
             </div>
           </div>
           <div class="flex justify-end space-x-3 pt-4">
-            <button type="button" @click="showModal = false" class="btn-secondary">Cancelar</button>
-            <button type="submit" :disabled="teamsStore.loading" class="btn-primary">Criar</button>
+            <button type="button" @click="showModal = false" class="btn-secondary">{{ t('common.cancel') }}</button>
+            <button type="submit" :disabled="teamsStore.loading" class="btn-primary">{{ t('common.create') }}</button>
           </div>
         </form>
       </div>

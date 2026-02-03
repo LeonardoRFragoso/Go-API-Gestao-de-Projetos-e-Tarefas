@@ -27,7 +27,8 @@
     "dashboard": "Dashboard",
     "projects": "Projetos",
     "boards": "Quadros",
-    "tasks": "Tarefas"
+    "tasks": "Tarefas",
+    "teams": "Equipes"
   },
   "auth": {
     "login": "Entrar",
@@ -60,22 +61,64 @@
   },
   "projects": {
     "title": "Projetos",
+    "subtitle": "Gerencie seus projetos",
     "newProject": "Novo Projeto",
     "projectName": "Nome do projeto",
+    "projectNamePlaceholder": "Nome do projeto",
     "projectDescription": "Descrição",
+    "projectDescriptionPlaceholder": "Descrição opcional",
     "projectColor": "Cor",
     "deleteConfirm": "Tem certeza que deseja excluir este projeto?",
     "noProjects": "Nenhum projeto encontrado",
     "createFirst": "Crie seu primeiro projeto",
-    "boards": "quadros | quadro | quadros"
+    "boards": "quadros",
+    "board": "quadro",
+    "members": "membros",
+    "member": "membro",
+    "backToProjects": "Voltar para Projetos",
+    "lists": "listas",
+    "tasks": "tarefas"
   },
   "boards": {
     "title": "Quadros",
     "newBoard": "Novo Quadro",
     "boardName": "Nome do quadro",
+    "boardNamePlaceholder": "Nome do quadro",
     "boardDescription": "Descrição",
+    "boardDescriptionPlaceholder": "Descrição opcional",
     "deleteConfirm": "Tem certeza que deseja excluir este quadro?",
     "noBoards": "Nenhum quadro encontrado"
+  },
+  "teams": {
+    "title": "Equipes",
+    "subtitle": "Gerencie suas equipes e squads",
+    "newTeam": "Nova Equipe",
+    "teamName": "Nome",
+    "teamNamePlaceholder": "Nome da equipe",
+    "teamDescription": "Descrição",
+    "teamDescriptionPlaceholder": "Descrição opcional",
+    "teamColor": "Cor",
+    "noTeams": "Nenhuma equipe",
+    "noTeamsDescription": "Crie uma equipe para colaborar com outros membros",
+    "createTeam": "Criar Equipe",
+    "deleteConfirm": "Tem certeza que deseja excluir esta equipe?",
+    "members": "membros",
+    "projects": "projetos",
+    "configure": "Configurar",
+    "backToTeams": "Voltar para Equipes",
+    "addMember": "Adicionar",
+    "addProject": "Adicionar",
+    "removeMember": "Tem certeza que deseja remover este membro?",
+    "removeProject": "Tem certeza que deseja remover este projeto da equipe?",
+    "noMembers": "Nenhum membro na equipe",
+    "noProjects": "Nenhum projeto vinculado",
+    "selectProject": "Selecione um projeto",
+    "addProjectTitle": "Adicionar Projeto",
+    "roles": {
+      "lead": "Líder",
+      "admin": "Admin",
+      "member": "Membro"
+    }
   },
   "tasks": {
     "title": "Tarefas",
