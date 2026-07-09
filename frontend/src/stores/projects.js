@@ -84,6 +84,45 @@ export const useProjectsStore = defineStore('projects', () => {
     }
   }
 
+  async function fetchProjectMembers(projectId) {
+    loading.value = true
+    try {
+      const response = await api.get(`/projects/${projectId}/members`)
+      return response.data.data || []
+    } catch (err) {
+      error.value = err.response?.data?.error || 'Erro ao carregar membros'
+      return []
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function addProjectMember(projectId, memberData) {
+    loading.value = true
+    try {
+      const response = await api.post(`/projects/${projectId}/members`, memberData)
+      return response.data.data
+    } catch (err) {
+      error.value = err.response?.data?.error || 'Erro ao adicionar membro'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function removeProjectMember(projectId, memberId) {
+    loading.value = true
+    try {
+      await api.delete(`/projects/${projectId}/members/${memberId}`)
+      return true
+    } catch (err) {
+      error.value = err.response?.data?.error || 'Erro ao remover membro'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
   return {
     projects,
     currentProject,
@@ -94,6 +133,9 @@ export const useProjectsStore = defineStore('projects', () => {
     fetchProject,
     createProject,
     updateProject,
-    deleteProject
+    deleteProject,
+    fetchProjectMembers,
+    addProjectMember,
+    removeProjectMember
   }
 })

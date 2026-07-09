@@ -25,6 +25,16 @@ const router = createRouter({
           component: () => import('@/views/ProjectDetailView.vue')
         },
         {
+          path: 'projects/:id/settings',
+          name: 'project-settings',
+          component: () => import('@/views/ProjectSettingsView.vue')
+        },
+        {
+          path: 'projects/:id/members',
+          name: 'project-members',
+          component: () => import('@/views/ProjectMembersView.vue')
+        },
+        {
           path: 'boards/:id',
           name: 'board',
           component: () => import('@/views/BoardView.vue')

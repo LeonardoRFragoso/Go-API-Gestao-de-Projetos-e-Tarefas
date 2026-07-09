@@ -269,6 +269,41 @@ frontend/src/components/
 
 ---
 
+## � Fase 1.1 - Fechamento Técnico
+
+### ✅ Rotas Adicionadas
+```javascript
+{
+  path: 'projects/:id/settings',
+  name: 'project-settings',
+  component: () => import('@/views/ProjectSettingsView.vue')
+},
+{
+  path: 'projects/:id/members',
+  name: 'project-members',
+  component: () => import('@/views/ProjectMembersView.vue')
+}
+```
+
+### ✅ Métodos de Store Implementados
+Todos os seguintes métodos foram adicionados ao `projectsStore`:
+- `fetchProjectMembers(projectId)` ✅
+- `addProjectMember(projectId, memberData)` ✅
+- `removeProjectMember(projectId, memberId)` ✅
+- `updateProject(projectId, data)` ✅ (já existia)
+
+### ✅ Traduções Adicionadas
+Adicionadas traduções em PT-BR e EN para:
+- Dashboard: `pendingTasks`, `progress`, `completionRate`, `taskBreakdown`, `completed`, `pending`
+- Projects: `backToProject`, `backToSettings`, `settings`, `settingsDescription`, `basicInfo`, `name`, `description`, `color`, `preview`, `dangerZone`, `dangerZoneDescription`, `deleteProject`, `confirmDelete`, `deleteWarning`, `deleteWarningDetails`, `updateSuccess`, `updateError`, `deleteSuccess`, `deleteError`, `manageMembers`, `manageMembersDescription`, `addMember`, `memberAdded`, `memberRemoved`, `addMemberError`, `removeMemberError`, `removeMemberConfirm`, `fetchMembersError`, `emailRequired`, `email`, `emailPlaceholder`, `role`, `roles`, `noMembers`, `membersTip`, `tip`, `settingsTip`, `untitled`, `noDescription`
+- Common: `add`, `open`
+
+### ✅ Integração Validada
+- ProjectSettingsView.vue integrada e funcional
+- ProjectMembersView.vue integrada e funcional
+- Todos os links navegáveis
+- Sem rotas quebradas
+
 ## 📝 Notas Importantes
 
 ### Variáveis de Ambiente
@@ -276,25 +311,16 @@ frontend/src/components/
 - CORS_ORIGINS deve ser configurado por ambiente
 - Database credentials devem ser seguras
 
-### Rotas Não Implementadas
-As seguintes rotas precisam ser adicionadas ao Vue Router:
-```javascript
-{
-  path: '/projects/:id/settings',
-  component: ProjectSettingsView
-},
-{
-  path: '/projects/:id/members',
-  component: ProjectMembersView
-}
-```
-
-### Métodos de Store Necessários
-Os seguintes métodos precisam ser implementados no `projectsStore`:
-- `fetchProjectMembers(projectId)`
-- `addProjectMember(projectId, memberData)`
-- `removeProjectMember(projectId, memberId)`
-- `updateProject(projectId, data)`
+### Endpoints Backend Esperados
+Os seguintes endpoints devem estar implementados no backend:
+- `GET /api/v1/projects` ✅
+- `POST /api/v1/projects` ✅
+- `GET /api/v1/projects/:id` ✅
+- `PUT /api/v1/projects/:id` ✅
+- `DELETE /api/v1/projects/:id` ✅
+- `GET /api/v1/projects/:id/members` (verificar)
+- `POST /api/v1/projects/:id/members` (verificar)
+- `DELETE /api/v1/projects/:id/members/:memberId` (verificar)
 
 ---
 
