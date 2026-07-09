@@ -6,6 +6,7 @@ vendor/
 dist/
 build/
 bin/
+api
 *.exe
 *.exe~
 *.dll
