@@ -4,7 +4,7 @@ import { useProjectsStore } from '@/stores/projects'
 import { useAuthStore } from '@/stores/auth'
 import { useStatsStore } from '@/stores/stats'
 import { useI18n } from 'vue-i18n'
-import { Folder, CheckCircle, Clock, ChevronRight, Plus, TrendingUp } from 'lucide-vue-next'
+import { Folder, CheckCircle, Clock, ChevronRight, Plus, TrendingUp, AlertCircle, Zap, BarChart3 } from 'lucide-vue-next'
 import SkeletonLoader from '@/components/ui/SkeletonLoader.vue'
 import TaskStatsChart from '@/components/charts/TaskStatsChart.vue'
 import WeeklyProgressChart from '@/components/charts/WeeklyProgressChart.vue'
@@ -47,8 +47,26 @@ const stats = computed(() => [
     color: 'yellow',
     bgClass: 'bg-yellow-100 dark:bg-yellow-900/30',
     textClass: 'text-yellow-600 dark:text-yellow-400'
+  },
+  {
+    label: t('dashboard.pendingTasks'),
+    value: statsStore.taskStats.todo || 0,
+    icon: AlertCircle,
+    color: 'blue',
+    bgClass: 'bg-blue-100 dark:bg-blue-900/30',
+    textClass: 'text-blue-600 dark:text-blue-400'
   }
 ])
+
+const totalTasks = computed(() => {
+  return (statsStore.taskStats.todo || 0) + (statsStore.taskStats.in_progress || 0) + (statsStore.taskStats.done || 0)
+})
+
+const completionRate = computed(() => {
+  const total = totalTasks.value
+  if (total === 0) return 0
+  return Math.round(((statsStore.taskStats.done || 0) / total) * 100)
+})
 </script>
 
 <template>
@@ -60,7 +78,7 @@ const stats = computed(() => [
       <p class="text-gray-600 dark:text-gray-400 mt-1">{{ t('dashboard.subtitle') }}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
       <div
         v-for="(stat, index) in stats"
         :key="stat.label"
@@ -77,11 +95,11 @@ const stats = computed(() => [
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="card p-6 animate-slide-up" style="animation-delay: 300ms">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="card p-6 animate-slide-up lg:col-span-2" style="animation-delay: 300ms">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('dashboard.taskStats') }}</h2>
-          <TrendingUp :size="20" class="text-gray-400" />
+          <BarChart3 :size="20" class="text-gray-400" />
         </div>
         <TaskStatsChart
           :todo="statsStore.taskStats.todo || 0"
@@ -92,16 +110,58 @@ const stats = computed(() => [
 
       <div class="card p-6 animate-slide-up" style="animation-delay: 400ms">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('dashboard.weeklyProgress') }}</h2>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('dashboard.progress') }}</h2>
+          <Zap :size="20" class="text-yellow-500" />
         </div>
-        <WeeklyProgressChart :data="statsStore.weeklyData" />
+        <div class="space-y-4">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ t('dashboard.completionRate') }}</span>
+              <span class="text-2xl font-bold text-gray-900 dark:text-white">{{ completionRate }}%</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-dark-700 rounded-full h-2">
+              <div 
+                class="bg-gradient-to-r from-green-400 to-green-600 h-2 rounded-full transition-all duration-500"
+                :style="{ width: completionRate + '%' }"
+              />
+            </div>
+          </div>
+          <div class="pt-4 border-t border-gray-100 dark:border-dark-700">
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">{{ t('dashboard.taskBreakdown') }}</p>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600 dark:text-gray-400">{{ t('dashboard.completed') }}</span>
+                <span class="font-semibold text-green-600 dark:text-green-400">{{ statsStore.taskStats.done || 0 }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600 dark:text-gray-400">{{ t('dashboard.inProgress') }}</span>
+                <span class="font-semibold text-yellow-600 dark:text-yellow-400">{{ statsStore.taskStats.in_progress || 0 }}</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600 dark:text-gray-400">{{ t('dashboard.pending') }}</span>
+                <span class="font-semibold text-blue-600 dark:text-blue-400">{{ statsStore.taskStats.todo || 0 }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="card animate-slide-up" style="animation-delay: 500ms">
+    <div class="card p-6 animate-slide-up" style="animation-delay: 450ms">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('dashboard.weeklyProgress') }}</h2>
+        <TrendingUp :size="20" class="text-gray-400" />
+      </div>
+      <WeeklyProgressChart :data="statsStore.weeklyData" />
+    </div>
+
+    <div class="card animate-slide-up" style="animation-delay: 550ms">
       <div class="p-4 md:p-6 border-b border-gray-100 dark:border-dark-700">
         <div class="flex items-center justify-between">
-          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">{{ t('dashboard.recentProjects') }}</h2>
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+            <Folder :size="20" />
+            {{ t('dashboard.recentProjects') }}
+          </h2>
           <RouterLink 
             to="/projects" 
             class="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-1"

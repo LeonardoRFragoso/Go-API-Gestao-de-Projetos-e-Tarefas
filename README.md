@@ -1,13 +1,17 @@
-# 📋 TaskManager - Sistema de Gestão de Projetos e Tarefas
+# � TaskFlow — Plataforma SaaS de Gestão de Projetos, Squads e Tarefas
 
 <p align="center">
   <img src="https://img.shields.io/badge/Go-1.23-00ADD8?style=for-the-badge&logo=go&logoColor=white" alt="Go" />
   <img src="https://img.shields.io/badge/Vue.js-3-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white" alt="Vue.js" />
   <img src="https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
   <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+  <img src="https://img.shields.io/badge/JWT-Auth-FF6B6B?style=for-the-badge&logo=json-web-tokens&logoColor=white" alt="JWT" />
+  <img src="https://img.shields.io/badge/REST-API-4ECDC4?style=for-the-badge&logo=api&logoColor=white" alt="REST API" />
 </p>
 
-Sistema completo estilo Trello para gestão de projetos e tarefas, com backend em Go e frontend em Vue.js 3. Inclui **Dark Mode**, **Internacionalização (PT-BR/EN)**, **Gráficos**, **Kanban Board** com drag-and-drop, **Equipes/Squads**, **Notificações** e muito mais!
+**TaskFlow** é uma plataforma SaaS moderna para gestão de projetos, squads e tarefas. Construída com **Go**, **Vue 3**, **PostgreSQL** e **Docker**, oferece um Kanban intuitivo com drag-and-drop, dashboard com métricas em tempo real, sistema de permissões granulares, gerenciamento de equipes e muito mais.
+
+Perfeita para equipes que buscam uma solução robusta, escalável e fácil de usar para organizar projetos e colaboração.
 
 🔗 **Repositório:** [https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas](https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas)
 
@@ -47,37 +51,88 @@ Sistema completo estilo Trello para gestão de projetos e tarefas, com backend e
 - **VueDraggable** - Drag and drop para Kanban
 - **VueUse** - Composables utilitários
 
+## 🏗️ Arquitetura
+
+### Backend - Arquitetura em Camadas
+
+```
+backend/
+├── cmd/api/                    # Entrypoint da aplicação
+├── internal/
+│   ├── config/                 # Configuração centralizada (env, JWT, CORS)
+│   ├── database/               # Conexão PostgreSQL e migrations
+│   ├── handler/                # Controllers HTTP (request/response)
+│   ├── middleware/             # Auth, CORS, logging
+│   ├── models/                 # Entidades GORM (User, Project, Task, etc)
+│   ├── repository/             # Data access layer (queries GORM)
+│   ├── router/                 # Definição de rotas Gin
+│   └── service/                # Lógica de negócio (regras, validações)
+├── Dockerfile
+├── go.mod / go.sum
+└── .env.example
+```
+
+**Fluxo de Requisição:**
+1. `Router` recebe requisição HTTP
+2. `Middleware` valida autenticação JWT
+3. `Handler` processa request e chama `Service`
+4. `Service` executa lógica de negócio
+5. `Repository` acessa dados via GORM
+6. Resposta retorna ao cliente
+
+### Frontend - Vue 3 com Pinia
+
+```
+frontend/src/
+├── api/                        # Cliente Axios (requisições HTTP)
+├── assets/                     # CSS global, tailwind
+├── components/                 # Componentes reutilizáveis
+│   ├── ui/                     # Componentes base (Button, Input, etc)
+│   └── charts/                 # Gráficos (Chart.js)
+├── i18n/                       # Internacionalização (PT-BR, EN)
+├── layouts/                    # Layouts (MainLayout, AuthLayout)
+├── router/                     # Vue Router (rotas SPA)
+├── stores/                     # Pinia stores (estado global)
+│   ├── auth.js                 # Autenticação
+│   ├── projects.js             # Projetos
+│   ├── boards.js               # Boards
+│   ├── tasks.js                # Tarefas
+│   └── stats.js                # Estatísticas
+├── views/                      # Páginas (Dashboard, Projects, Board, etc)
+├── App.vue                     # Componente raiz
+└── main.js                     # Entrypoint
+```
+
+**Fluxo de Dados:**
+1. Componente Vue dispara ação em `Store` (Pinia)
+2. Store chama `API` (Axios)
+3. API faz requisição ao Backend
+4. Store atualiza estado
+5. Componente reage à mudança de estado
+
+### Banco de Dados - PostgreSQL
+
+**Entidades principais:**
+- `users` - Usuários do sistema
+- `projects` - Projetos
+- `project_members` - Membros de projeto com roles
+- `boards` - Quadros Kanban
+- `lists` - Listas dentro de boards
+- `tasks` - Tarefas
+- `task_assignees` - Responsáveis de tarefas
+- `comments` - Comentários em tarefas
+- `labels` - Labels/tags
+- `teams` - Equipes/Squads
+- `notifications` - Notificações
+
 ## 📁 Estrutura do Projeto
 
 ```
-├── backend/
-│   ├── cmd/api/           # Entrypoint da aplicação
-│   ├── internal/
-│   │   ├── config/        # Configurações
-│   │   ├── database/      # Conexão e migrations
-│   │   ├── handler/       # Controllers/Handlers
-│   │   ├── middleware/    # Auth, CORS
-│   │   ├── models/        # Entidades do banco
-│   │   ├── repository/    # Acesso a dados
-│   │   ├── router/        # Definição de rotas
-│   │   └── service/       # Lógica de negócio
-│   ├── Dockerfile
-│   ├── go.mod
-│   └── .env.example
-├── frontend/
-│   ├── src/
-│   │   ├── api/           # Cliente Axios
-│   │   ├── assets/        # CSS global
-│   │   ├── layouts/       # Layouts da aplicação
-│   │   ├── router/        # Vue Router
-│   │   ├── stores/        # Pinia stores
-│   │   └── views/         # Páginas
-│   ├── Dockerfile
-│   ├── package.json
-│   └── .env.example
-├── docker-compose.yml
-├── Makefile
-└── README.md
+├── backend/                    # API Go/Gin
+├── frontend/                   # SPA Vue 3
+├── docker-compose.yml          # Orquestração de containers
+├── Makefile                    # Comandos úteis
+└── README.md                   # Este arquivo
 ```
 
 ## 🛠️ Instalação e Execução
@@ -258,26 +313,63 @@ Inclua o token no header:
 Authorization: Bearer <access_token>
 ```
 
-## 🎨 Funcionalidades do Frontend
+## 🎨 Funcionalidades do Frontend (Detalhadas)
 
-- ✅ **Autenticação** - Login/registro com JWT
-- ✅ **Dashboard** - Métricas, gráficos de pizza e barras
-- ✅ **Dark Mode** - Toggle de tema com persistência
-- ✅ **Internacionalização** - PT-BR e Inglês
-- ✅ **CRUD de Projetos** - Criar, editar, excluir projetos
-- ✅ **CRUD de Quadros** - Gerenciar boards do Kanban
-- ✅ **Kanban Board** - Drag-and-drop com colunas coloridas
-- ✅ **Busca e Filtros** - Pesquisar tarefas, filtrar por prioridade
-- ✅ **Prioridades** - Baixa, média, alta, urgente com badges coloridos
-- ✅ **Toast Notifications** - Feedback visual para todas as ações
+### Autenticação & Perfil
+- ✅ **Login/Registro** - Autenticação JWT com validação
+- ✅ **Perfil de Usuário** - Editar nome, email, senha
+- ✅ **Persistência de Sessão** - Refresh token automático
+
+### Dashboard
+- ✅ **Cards de Estatísticas** - Total de projetos, tarefas, progresso
+- ✅ **Gráficos Interativos** - Tarefas por status, prioridade, evolução semanal
+- ✅ **Projetos Recentes** - Acesso rápido aos últimos projetos
+- ✅ **Métricas em Tempo Real** - Dados atualizados automaticamente
+
+### Projetos
+- ✅ **CRUD Completo** - Criar, editar, visualizar, excluir projetos
+- ✅ **Visão Geral** - Informações consolidadas do projeto
+- ✅ **Gerenciamento de Membros** - Adicionar/remover com controle de roles
+- ✅ **Configurações** - Editar propriedades e gerenciar acesso
+
+### Kanban Board
+- ✅ **Drag-and-Drop** - Mover tarefas entre colunas
+- ✅ **Colunas Customizáveis** - To Do, In Progress, Done
+- ✅ **Filtros** - Por prioridade, responsável, label
+- ✅ **Busca** - Pesquisar tarefas em tempo real
+
+### Tarefas
+- ✅ **Criação Rápida** - Modal ou inline
+- ✅ **Edição Completa** - Título, descrição, prioridade, data de vencimento
+- ✅ **Responsáveis** - Atribuir múltiplos usuários
+- ✅ **Labels** - Categorizar com tags customizáveis
+- ✅ **Comentários** - Discussão e colaboração
+- ✅ **Histórico** - Rastreamento de mudanças
+
+### Equipes
+- ✅ **Gerenciamento** - Criar, editar, excluir equipes
+- ✅ **Membros** - Adicionar com roles (lead, admin, member)
+- ✅ **Projetos de Equipe** - Vincular projetos
+
+### Notificações
+- ✅ **Dropdown** - Acesso rápido às notificações
+- ✅ **Badge de Contagem** - Número de não lidas
+- ✅ **Marcar como Lida** - Individual ou em lote
+- ✅ **Excluir** - Remover notificações
+
+### Tema & Idioma
+- ✅ **Dark Mode** - Toggle com persistência
+- ✅ **Light Mode** - Tema claro padrão
+- ✅ **Português (BR)** - Tradução completa
+- ✅ **Inglês** - Suporte bilíngue
+
+### UX/UI
+- ✅ **Responsivo** - Mobile, tablet, desktop
 - ✅ **Skeleton Loading** - Estados de carregamento elegantes
-- ✅ **Responsivo** - Menu mobile, bottom navigation
-- ✅ **Atalhos de Teclado** - `?` para ver atalhos, `N` para nova tarefa
-- ✅ **Onboarding** - Tutorial interativo para novos usuários
-- ✅ **Animações** - Transições suaves e micro-interações
-- ✅ **Equipes/Squads** - Gerenciamento de equipes com membros e projetos
-- ✅ **Notificações** - Dropdown com notificações em tempo real
-- ✅ **Permissões** - Sistema de roles (lead, admin, member)
+- ✅ **Toast Notifications** - Feedback visual
+- ✅ **Animações** - Transições suaves
+- ✅ **Atalhos de Teclado** - Navegação rápida
+- ✅ **Acessibilidade** - ARIA labels e navegação por teclado
 
 ## ⌨️ Atalhos de Teclado
 
@@ -285,16 +377,27 @@ Authorization: Bearer <access_token>
 |--------|------|
 | `?` | Mostrar/ocultar atalhos |
 | `N` | Nova tarefa |
-| `/` ou `Ctrl+K` | Buscar |
-| `Esc` | Fechar modal |
+| `/` ou `Ctrl+K` | Buscar tarefas |
+| `Esc` | Fechar modal/dropdown |
+| `Ctrl+D` | Toggle dark mode |
+| `Ctrl+L` | Logout |
 
 ## 🖼️ Screenshots
 
-### Dashboard (Light Mode)
-O dashboard exibe estatísticas de tarefas com gráficos interativos e lista de projetos recentes.
+### Dashboard
+![Dashboard - Em breve](https://via.placeholder.com/800x600?text=Dashboard+Placeholder)
 
-### Kanban Board (Dark Mode)
-Board Kanban com colunas coloridas (To Do, In Progress, Done), drag-and-drop e filtros.
+Visualização geral com cards de estatísticas, gráficos de tarefas por status e progresso semanal.
+
+### Kanban Board
+![Kanban Board - Em breve](https://via.placeholder.com/800x600?text=Kanban+Board+Placeholder)
+
+Board com colunas (To Do, In Progress, Done), drag-and-drop, filtros e busca.
+
+### Projetos
+![Projetos - Em breve](https://via.placeholder.com/800x600?text=Projetos+Placeholder)
+
+Lista de projetos com membros, boards e ações rápidas.
 
 ## 📝 Comandos do Makefile
 
@@ -345,7 +448,64 @@ Para deploy em produção:
 4. Configure HTTPS/SSL
 5. Use o docker-compose.yml ou deploy em Kubernetes
 
-## 📄 Licença
+## 🎯 Diferenciais Técnicos
+
+### Backend
+- **Arquitetura em Camadas** - Separação clara de responsabilidades (handler → service → repository)
+- **GORM com Migrations** - ORM robusta com versionamento de schema
+- **JWT com Refresh Tokens** - Autenticação segura com tokens de curta duração
+- **Permissões Granulares** - Sistema de roles e permissões por recurso
+- **Tratamento de Erros Consistente** - Response patterns padronizados
+- **CORS Configurável** - Suporte a múltiplas origens
+
+### Frontend
+- **Vue 3 Composition API** - Código moderno e reativo
+- **Pinia com Persistência** - Estado global com suporte a localStorage
+- **Responsivo Mobile-First** - Funciona perfeitamente em todos os tamanhos
+- **Dark Mode Nativo** - Tema escuro com persistência
+- **Internacionalização** - Suporte a múltiplos idiomas (PT-BR, EN)
+- **Gráficos Interativos** - Chart.js integrado para análise visual
+- **Drag-and-Drop** - VueDraggable para Kanban intuitivo
+- **Atalhos de Teclado** - Navegação rápida com atalhos customizáveis
+
+### DevOps
+- **Docker Compose** - Ambiente completo em um comando
+- **Multi-stage Builds** - Imagens otimizadas e leves
+- **Health Checks** - Verificação de saúde dos serviços
+- **Volumes Persistentes** - Dados PostgreSQL preservados
+
+## � Próximos Passos (Roadmap)
+
+### Fase 1 (Atual) ✅
+- [x] Arquitetura base em camadas
+- [x] CRUD completo de projetos, tarefas, boards
+- [x] Autenticação JWT
+- [x] Dashboard com gráficos
+- [x] Kanban com drag-and-drop
+- [x] Equipes/Squads
+- [x] Notificações
+- [x] Permissões granulares
+- [ ] Melhorias de UX/UI
+- [ ] Tela de configurações de projeto
+- [ ] Visão geral aprimorada de projeto
+
+### Fase 2 (Planejado)
+- [ ] Filtros avançados e busca full-text
+- [ ] Relatórios e exportação de dados
+- [ ] Integração com calendário
+- [ ] Webhooks para integrações
+- [ ] API GraphQL (alternativa)
+- [ ] Testes automatizados (unit + integration)
+
+### Fase 3 (Futuro)
+- [ ] WebSockets para colaboração em tempo real
+- [ ] Automações e workflows
+- [ ] Sprints e planejamento
+- [ ] Analytics avançado
+- [ ] Mobile app (React Native)
+- [ ] Autenticação OAuth2 (Google, GitHub)
+
+## �📄 Licença
 
 MIT License
 
@@ -353,3 +513,8 @@ MIT License
 
 **Leonardo R. Fragoso**
 - GitHub: [@LeonardoRFragoso](https://github.com/LeonardoRFragoso)
+- LinkedIn: [linkedin.com/in/leonardo-fragoso](https://linkedin.com/in/leonardo-fragoso)
+
+---
+
+**Desenvolvido com ❤️ para equipes que buscam organização e produtividade.**
