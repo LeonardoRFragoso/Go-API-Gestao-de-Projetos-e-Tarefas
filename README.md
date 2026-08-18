@@ -9,9 +9,9 @@
   <img src="https://img.shields.io/badge/REST-API-4ECDC4?style=for-the-badge&logo=api&logoColor=white" alt="REST API" />
 </p>
 
-**TaskFlow** é uma plataforma SaaS moderna para gestão de projetos, squads e tarefas. Construída com **Go**, **Vue 3**, **PostgreSQL** e **Docker**, oferece um Kanban intuitivo com drag-and-drop, dashboard com métricas em tempo real, sistema de permissões granulares, gerenciamento de equipes e muito mais.
+**TaskFlow** é uma plataforma SaaS para gestão de projetos, squads e tarefas. Construída com **Go**, **Vue 3**, **PostgreSQL** e **Docker**, oferece um Kanban intuitivo com drag-and-drop, dashboard com métricas, sistema de permissões granulares, gerenciamento de equipes e mais.
 
-Perfeita para equipes que buscam uma solução robusta, escalável e fácil de usar para organizar projetos e colaboração.
+> **Nota:** projeto em desenvolvimento (Fase 1). Não é production-ready.
 
 🔗 **Repositório:** [https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas](https://github.com/LeonardoRFragoso/Go-API-Gestao-de-Projetos-e-Tarefas)
 
@@ -22,7 +22,7 @@ Perfeita para equipes que buscam uma solução robusta, escalável e fácil de u
 - 📊 **Dashboard com Gráficos** - Visualização de estatísticas com Chart.js
 - 📋 **Kanban Board** - Arrastar e soltar tarefas entre colunas
 - � **Equipes/Squads** - Crie equipes, adicione membros e vincule projetos
-- 🔔 **Sistema de Notificações** - Notificações em tempo real para tarefas, convites e menções
+- 🔔 **Sistema de Notificações** - Notificações para tarefas, convites e menções
 - 🛡️ **Permissões Granulares** - Controle de acesso por projeto e equipe (lead, admin, member)
 - � **Busca e Filtros** - Pesquise tarefas por título, descrição e prioridade
 - 📱 **Responsivo** - Menu mobile e bottom navigation
@@ -411,7 +411,7 @@ make up             # Inicia containers
 make down           # Para containers
 make logs           # Ver logs
 make clean          # Limpa containers e volumes
-make test           # Executa testes
+make test           # Executa testes (a implementar — sem suíte de testes configurada)
 make setup          # Configura dependências
 ```
 
@@ -452,7 +452,7 @@ Para deploy em produção:
 
 ### Backend
 - **Arquitetura em Camadas** - Separação clara de responsabilidades (handler → service → repository)
-- **GORM com Migrations** - ORM robusta com versionamento de schema
+- **GORM com Migrations** - ORM com versionamento de schema
 - **JWT com Refresh Tokens** - Autenticação segura com tokens de curta duração
 - **Permissões Granulares** - Sistema de roles e permissões por recurso
 - **Tratamento de Erros Consistente** - Response patterns padronizados
